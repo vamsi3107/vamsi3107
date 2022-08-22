@@ -1,0 +1,125 @@
+import React, {Component, useState, setQuantity} from 'react';
+import {
+  AppRegistry,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+  Image,
+  Dimensions,
+  SafeAreaView,
+  Pressable,
+  FlatList,
+  Alert,
+} from 'react-native';
+import {Button} from 'react-native-paper';
+
+const DATA = [
+  {
+    id: 1,
+    picture: require('./image5.png'),
+    title: 'Shawarma',
+  },
+  {
+    id: 2,
+    picture: require('./image7.png'),
+    title: 'Special Dosa',
+  },
+  {
+    id: 3,
+    picture: require('./image8.png'),
+    title: 'Pav bhaji',
+  },
+  {
+    id: 4,
+    picture: require('./image13.png'),
+    title: 'Bahubali Thali Biriyani',
+  },
+];
+
+export const SwiperComponent = ({navigation}) => {
+  const [quantity, setQuantity] = useState(0); 
+  const [name, setName] = useState('');
+  const [extraData, setExtraData] = React.useState(new Date());
+  const Item = ({image, title}) => (
+    <View>
+      <TouchableOpacity>
+        <Text style={styles.text}>{title}</Text>
+      </TouchableOpacity>
+      <View style={{flexDirection: 'row', backgroundColor: '#fffff0'}}>
+        <TouchableOpacity
+          style={{height: 180, width: '70%'}}
+          onPress={() => {
+            if (quantity > 1) {
+              navigation.navigate('Tabs', {
+                screen: 'CartScreen',
+                params: {quantity: quantity, name: name},
+              });
+            }
+          }}>
+          <Image
+            style={styles.image}
+            height={180}
+            width={'100%'}
+            source={image}
+          />
+        </TouchableOpacity>
+        <View style={{flexDirection: 'row', alignItems: 'center'}}>
+          <Button
+            onPress={() => {
+              setQuantity(quantity + 1), setName(title);
+            }}>
+            +
+          </Button>
+          <Text style={{alignItems: 'center', color: 'black', marginTop: 6}}>
+            {quantity}
+          </Text>
+
+          <Button
+            onPress={() => {
+              if (quantity > 1) {
+                setQuantity(quantity - 1);
+              }
+              setName(title);
+            }}>
+            -
+          </Button>
+        </View>
+      </View>
+    </View>
+  );
+
+  const renderItem = ({item, index}) => {
+    return (
+      <View>
+        <Item image={item.picture} title={item.title} />
+      </View>
+    );
+  };
+  return (
+    <View style={{flex: 1}}>
+      <FlatList
+        // showsVerticalScrollIndicator={true}
+        data={DATA}
+        renderItem={renderItem}
+        keyExtractor={item => item.id}
+        extraData={extraData}
+      />
+    </View>
+  );
+};
+
+const styles = StyleSheet.create({
+  text: {
+    color: 'black',
+    fontSize: 20,
+    alignItems: 'center',
+    fontWeight: 'bold',
+    marginTop: 20,
+  },
+  image: {
+    height: 180,
+    width: '70%',
+  },
+});
