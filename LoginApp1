@@ -1,0 +1,125 @@
+import {useNavigation} from '@react-navigation/native';
+import React, {useState} from 'react';
+
+import {
+  StyleSheet,
+  Text,
+  View,
+  Image,
+  TextInput,
+  Button,
+  SafeAreaView,
+  TouchableOpacity,
+  Pressable,
+} from 'react-native';
+
+export default function LoginApp1({navigation}) {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  // const navigation = useNavigation();
+
+  return (
+    <View style={styles.container}>
+      <Text
+        style={{
+          alignItems: 'center',
+          justifyContent: 'center',
+          fontSize: 60,
+          flexDirection: 'row',
+          backgroundColor: '00ff7f',
+          // borderWidth: 1,
+          // borderHeight: 0.5,
+          marginBottom: 40,
+        }}>
+      ZOMATO
+        <Text style={{color: '00ff7f'}}></Text>
+      </Text>
+
+      <View style={styles.inputView}>
+        <TextInput
+          style={styles.TextInput}
+          placeholder="Email"
+          placeholderTextColor="black"
+          onChangeText={email => setEmail(email)}
+        />
+      </View>
+
+      <View style={styles.inputView}>
+        <TextInput
+          style={styles.TextInput}
+          placeholder="Password"
+          placeholderTextColor="black"
+          secureTextEntry={true}
+          onChangeText={password => setPassword(password)}
+        />
+      </View>
+      <View>
+        <Text style={styles.title}></Text>
+        <TouchableOpacity
+          // style={styles.loginBtn}
+          onPress={() => navigation.navigate('Tabs', {screen: 'SwiperScreen'})}>
+          <Text style={{fontSize: 30, fontWeight: 'bold'}}>Login</Text>
+        </TouchableOpacity>
+      </View>
+      <Text style={styles.baseText}>Or login with</Text>
+      <Text style={styles.title}>
+        <Text style={styles.fixToText}></Text>
+      </Text>
+      <View>
+        <Text style={styles.title}>
+          This layout strategy lets the title define the width of the button.
+        </Text>
+        <View style={styles.fixToText}>
+          <Button title="Facebook" />
+          <Button title="Google" />
+        </View>
+      </View>
+      <Text style={styles.baseText}>Not a member?</Text>
+      <TouchableOpacity>
+        <Text style={styles.baseText1}>Sign up now</Text>
+      </TouchableOpacity>
+    </View>
+  );
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#ffc0cb',
+    padding: 20,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+
+  baseText: {
+    marginTop: 40,
+    fontWeight: 'bold',
+  },
+
+  title: {
+    textAlign: 'center',
+    marginVertical: 5,
+    paddle: 20,
+    height: 5,
+  },
+  fixToText: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  inputView: {
+    backgroundColor: 'white',
+    borderRadius: 30,
+    width: '80%',
+    alignItems:'flex-start',
+    height: 60,
+    marginBottom: 20,
+
+  },
+
+  TextInput: {
+    height: 50,
+    flex: 1,
+    // padding: 10,
+    marginLeft: 20,
+  },
+});
